@@ -24,15 +24,6 @@ import FloatingWhatsapp from "../components/FloatingWhatsapp.astro";
   <Header />
 
   <main>
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <div class="container">
-        <ol>
-          <li><a href="#">Beranda</a></li>
-          <li aria-current="page">Jasa Service Bandung</li>
-        </ol>
-      </div>
-    </nav>
-
     <Hero />
     <TrustBar />
     <Services />
@@ -195,32 +186,6 @@ import FloatingWhatsapp from "../components/FloatingWhatsapp.astro";
 </BaseLayout>
 
 <style>
-  .breadcrumb {
-    padding: calc(var(--header-h) + 14px) 0 14px;
-    font-size: 13px;
-    color: var(--text-soft);
-  }
-  .breadcrumb ol {
-    display: flex;
-    gap: 8px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .breadcrumb li::after {
-    content: "/";
-    margin-left: 8px;
-    color: var(--border-strong);
-  }
-  .breadcrumb li:last-child::after {
-    display: none;
-  }
-  .breadcrumb a:hover {
-    color: var(--primary);
-  }
-  .breadcrumb li[aria-current] {
-    color: var(--text-muted);
-    font-weight: 600;
-  }
   .back-to-top {
     position: fixed;
     bottom: 100px;
