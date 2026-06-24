@@ -1,0 +1,171 @@
+---
+import { coverageAreas } from "../data/coverage";
+---
+
+<section class="coverage" id="area">
+  <div class="container">
+    <div class="coverage-inner">
+      <div class="coverage-map reveal">
+        <div class="map-overlay">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Area Layanan Kami
+        </div>
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d101428.4!2d107.5731!3d-6.9034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sid!4v1700000000000"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Peta Cakupan Area Layanan Sejuk Service Bandung"></iframe>
+      </div>
+
+      <div class="coverage-content">
+        <span class="eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Cakupan Area
+        </span>
+        <h2>Service Alat Rumah Tangga Bandung & Sekitarnya</h2>
+        <p>Sejuk Service melayani panggilan service di seluruh Kota Bandung dan area sekitarnya. Tim teknisi kami siap datang ke lokasi Anda dengan respons cepat.</p>
+
+        <div class="area-list">
+          {
+            coverageAreas.map((area) => (
+              <div class="area-item">
+                <div class="pin">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                </div>
+                <div>
+                  <div class="area-name">{area.name}</div>
+                  <div class="area-status">{area.response}</div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <div style="margin-top: 28px;">
+          <a href="https://wa.me/628122023364?text=Halo%20Sejuk%20Service,%20apakah%20area%20saya%20termasuk%20cakupan%20layanan?" class="btn btn-primary" target="_blank" rel="noopener">
+            Cek Apakah Lokasi Saya Tercakup
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .coverage {
+    background: var(--bg-soft);
+  }
+  .coverage-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+  .coverage-map {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    aspect-ratio: 1/1;
+    position: relative;
+  }
+  .coverage-map iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .coverage-map .map-overlay {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--surface);
+    padding: 10px 14px;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    z-index: 1;
+  }
+  .coverage-map .map-overlay svg {
+    width: 16px;
+    height: 16px;
+    color: var(--primary);
+  }
+  .coverage-content h2 {
+    margin-bottom: 16px;
+    text-align: left;
+  }
+  .coverage-content .eyebrow {
+    margin-left: 0;
+  }
+  .coverage-content > p {
+    color: var(--text-muted);
+    margin-bottom: 28px;
+    font-size: 1.05rem;
+  }
+  .area-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .area-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    transition: all 0.25s;
+  }
+  .area-item:hover {
+    border-color: var(--primary);
+    transform: translateX(4px);
+    box-shadow: var(--shadow);
+  }
+  .area-item .pin {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--primary-light);
+    color: var(--primary);
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+  .area-item .pin svg {
+    width: 16px;
+    height: 16px;
+  }
+  .area-item .area-name {
+    font-weight: 700;
+    font-size: 14.5px;
+  }
+  .area-item .area-status {
+    font-size: 12px;
+    color: var(--success);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .area-item .area-status::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--success);
+  }
+  @media (max-width: 768px) {
+    .coverage-inner {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    .area-list {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,145 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+}
+
+const { title, description, canonical } = Astro.props;
+
+const localBusiness = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "@id": "https://sejukservice.com/#business",
+  name: "Sejuk Service",
+  description:
+    "Jasa service AC, mesin cuci, water heater, dan pompa submersible profesional di Bandung.",
+  image: "https://sejukservice.com/logo.png",
+  url: "https://sejukservice.com/",
+  telephone: "+6281222023364",
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Jl. Cikaso Barat No.20, Sukamaju, Kec. Cibeunying Kidul, Kota Bandung, Jawa Barat 40121",
+    addressLocality: "Bandung",
+    addressRegion: "Jawa Barat",
+    postalCode: "40117",
+    addressCountry: "ID",
+  },
+  geo: { "@type": "GeoCoordinates", latitude: -6.9175, longitude: 107.6191 },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
+      opens: "07:00",
+      closes: "21:00",
+    },
+  ],
+  areaServed: [
+    "Bandung",
+    "Cimahi",
+    "Kabupaten Bandung",
+    "Bandung Barat",
+    "Sumedang",
+    "Jatinangor",
+  ],
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    reviewCount: "150",
+    bestRating: "5",
+  },
+};
+
+const faqPage = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Berapa biaya service alat rumah tangga di Bandung?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Biaya cuci AC dimulai dari Rp 65.000 per unit, service AC mulai Rp 100.000, service mesin cuci mulai Rp 100.000, service water heater mulai Rp 150.000, dan service pompa submersible mulai Rp 200.000. Semua harga transparan tanpa biaya tersembunyi.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Apakah Sejuk Service melayani same-day service?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Ya, kami menyediakan layanan same-day service untuk panggilan sebelum jam 3 sore. Respons kami rata-rata 30-60 menit di area Bandung, Cimahi, dan sekitarnya.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Area mana saja yang dilayani Sejuk Service?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Kami melayani Bandung Kota, Cimahi, Kabupaten Bandung, Bandung Barat, Sumedang, dan Jatinangor beserta area sekitarnya.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Apakah service diberikan garansi?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Ya, semua pekerjaan service kami diberikan garansi mulai 1 bulan hingga 3 bulan tergantung jenis layanan. Garansi mencakup sparepart dan jasa teknisi.",
+      },
+    },
+  ],
+};
+---
+
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="theme-color" content="#2563EB" />
+
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="service AC Bandung, cuci AC Bandung, jasa service AC Bandung, service mesin cuci Bandung, service water heater Bandung, service pompa submersible Bandung, teknisi AC Bandung, jasa perbaikan AC Bandung, service AC Cimahi, service AC Bandung Barat"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonical ?? "https://sejukservice.com/"} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:url" content={canonical ?? "https://sejukservice.com/"} />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" />
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(localBusiness)}
+    />
+    <script type="application/ld+json" set:html={JSON.stringify(faqPage)} />
+
+    <slot name="head" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,264 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/global.css";
+
+import Header from "../components/Header.astro";
+import Hero from "../components/Hero.astro";
+import TrustBar from "../components/TrustBar.astro";
+import Services from "../components/Services.astro";
+import WhyUs from "../components/WhyUs.astro";
+import Process from "../components/Process.astro";
+import Coverage from "../components/Coverage.astro";
+import Testimonials from "../components/Testimonials.astro";
+import FAQ from "../components/FAQ.astro";
+import Contact from "../components/Contact.astro";
+import FinalCTA from "../components/FinalCTA.astro";
+import Footer from "../components/Footer.astro";
+import FloatingWhatsapp from "../components/FloatingWhatsapp.astro";
+---
+
+<BaseLayout
+  title="Sejuk Service: Jasa Service AC Bandung Profesional & Bergaransi"
+  description="Sejuk Service - Jasa service alat rumah tangga terpercaya di Bandung. Melayani service AC, cuci AC, isi freon, service mesin cuci, water heater, dan pompa submersible di Bandung, Cimahi, Sumedang, Jatinangor. Teknisi berpengalaman, bergaransi, respon cepat."
+>
+  <Header />
+
+  <main>
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <div class="container">
+        <ol>
+          <li><a href="#">Beranda</a></li>
+          <li aria-current="page">Jasa Service Bandung</li>
+        </ol>
+      </div>
+    </nav>
+
+    <Hero />
+    <TrustBar />
+    <Services />
+    <WhyUs />
+    <Process />
+    <Coverage />
+    <Testimonials />
+    <FAQ />
+    <Contact />
+    <FinalCTA />
+  </main>
+
+  <Footer />
+  <FloatingWhatsapp />
+
+  <button id="backToTop" class="back-to-top" aria-label="Kembali ke atas">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"/>
+    </svg>
+  </button>
+
+  <script>
+    // ===== TEMA TOGGLE =====
+    const themeToggle = document.getElementById("themeToggle");
+    const root = document.documentElement;
+    const savedTheme = localStorage.getItem("sejuk-theme") || "light";
+    root.setAttribute("data-theme", savedTheme);
+
+    themeToggle?.addEventListener("click", () => {
+      const current = root.getAttribute("data-theme");
+      const next = current === "light" ? "dark" : "light";
+      root.setAttribute("data-theme", next);
+      localStorage.setItem("sejuk-theme", next);
+    });
+
+    // ===== HEADER SCROLL EFFECT =====
+    const header = document.getElementById("header");
+    function onScroll() {
+      if (window.scrollY > 20) header.classList.add("scrolled");
+      else header.classList.remove("scrolled");
+    }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+
+    // ===== REVEAL ON SCROLL =====
+    const revealEls = document.querySelectorAll(".reveal");
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add("visible"), i * 60);
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -50px 0px" }
+    );
+    revealEls.forEach((el) => io.observe(el));
+
+    // ===== ANIMATED COUNTERS =====
+    const counters = document.querySelectorAll(".num[data-target]");
+    const counterIO = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.dataset.target, 10);
+            const suffix = el.querySelector(".suffix")?.outerHTML || "";
+            const duration = 1800;
+            const start = performance.now();
+            function step(now) {
+              const progress = Math.min((now - start) / duration, 1);
+              const eased = 1 - Math.pow(1 - progress, 3);
+              const value = Math.floor(eased * target);
+              el.innerHTML = value.toLocaleString("id-ID") + suffix;
+              if (progress < 1) requestAnimationFrame(step);
+              else el.innerHTML = target.toLocaleString("id-ID") + suffix;
+            }
+            requestAnimationFrame(step);
+            counterIO.unobserve(el);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+    counters.forEach((c) => counterIO.observe(c));
+
+    // ===== FAQ ACCORDION =====
+    document.querySelectorAll(".faq-q").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const item = btn.closest(".faq-item");
+        const isOpen = item.classList.contains("active");
+        document.querySelectorAll(".faq-item").forEach((i) => {
+          i.classList.remove("active");
+          i.querySelector(".faq-q").setAttribute("aria-expanded", "false");
+        });
+        if (!isOpen) {
+          item.classList.add("active");
+          btn.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+
+    // ===== SMOOTH SCROLL FOR NAV LINKS =====
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (e) => {
+        const targetId = link.getAttribute("href");
+        if (targetId === "#") {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: "smooth" });
+          return;
+        }
+        const target = document.querySelector(targetId);
+        if (target) {
+          e.preventDefault();
+          const offset = 80;
+          const top =
+            target.getBoundingClientRect().top + window.scrollY - offset;
+          window.scrollTo({ top, behavior: "smooth" });
+        }
+      });
+    });
+
+    // ===== BACK TO TOP =====
+    const backToTop = document.getElementById("backToTop");
+    function onBackToTopScroll() {
+      if (window.scrollY > 400) backToTop.classList.add("visible");
+      else backToTop.classList.remove("visible");
+    }
+    window.addEventListener("scroll", onBackToTopScroll, { passive: true });
+    onBackToTopScroll();
+
+    backToTop?.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    // ===== MOBILE MENU TOGGLE =====
+    const menuToggle = document.querySelector(".menu-toggle");
+    const nav = document.querySelector(".nav");
+    if (menuToggle) {
+      menuToggle.addEventListener("click", () => {
+        if (nav.style.display === "flex") {
+          nav.style.display = "";
+        } else {
+          nav.style.display = "flex";
+          nav.style.position = "fixed";
+          nav.style.top = "var(--header-h)";
+          nav.style.left = "0";
+          nav.style.right = "0";
+          nav.style.flexDirection = "column";
+          nav.style.background = "var(--surface)";
+          nav.style.padding = "20px";
+          nav.style.borderBottom = "1px solid var(--border)";
+          nav.style.boxShadow = "var(--shadow-md)";
+          nav.style.gap = "6px";
+        }
+      });
+    }
+  </script>
+</BaseLayout>
+
+<style>
+  .breadcrumb {
+    padding: 14px 0;
+    font-size: 13px;
+    color: var(--text-soft);
+  }
+  .breadcrumb ol {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .breadcrumb li::after {
+    content: "/";
+    margin-left: 8px;
+    color: var(--border-strong);
+  }
+  .breadcrumb li:last-child::after {
+    display: none;
+  }
+  .breadcrumb a:hover {
+    color: var(--primary);
+  }
+  .breadcrumb li[aria-current] {
+    color: var(--text-muted);
+    font-weight: 600;
+  }
+  .back-to-top {
+    position: fixed;
+    bottom: 100px;
+    right: 20px;
+    z-index: 99;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--primary);
+    color: white;
+    box-shadow: var(--shadow-lg);
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+  }
+  .back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .back-to-top:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-xl);
+  }
+  .back-to-top svg {
+    width: 20px;
+    height: 20px;
+  }
+  @media (max-width: 768px) {
+    .back-to-top {
+      bottom: 90px;
+      right: 16px;
+      width: 40px;
+      height: 40px;
+    }
+  }
+</style>

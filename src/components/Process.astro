@@ -1,0 +1,121 @@
+---
+const steps = [
+  { num: "1", title: "Konsultasi WhatsApp", desc: "Chat kami via WhatsApp, jelaskan keluhan unit Anda. Konsultasi gratis tanpa biaya." },
+  { num: "2", title: "Jadwalkan Kunjungan", desc: "Pilih waktu yang nyaman, teknisi akan datang sesuai jadwal yang disepakati." },
+  { num: "3", title: "Pemeriksaan Unit", desc: "Teknisi cek diagnostik menyeluruh dan berikan estimasi harga transparan." },
+  { num: "4", title: "Perbaikan", desc: "Setelah disetujui, perbaikan dilakukan dengan sparepart original dan alat profesional." },
+  { num: "5", title: "Garansi Service", desc: "Anda mendapatkan kartu garansi 1-3 bulan. Tim siap bantu jika ada kendala pasca service." },
+];
+---
+
+<section class="process" id="proses">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+        Alur Kerja
+      </span>
+      <h2>5 Langkah Mudah Service Bersama Sejuk Service</h2>
+      <p>Proses yang transparan dan terstruktur dari konsultasi awal hingga garansi purna jual.</p>
+    </div>
+
+    <div class="process-grid">
+      {
+        steps.map((step) => (
+          <div class="process-step reveal">
+            <div class="process-num">{step.num}</div>
+            <h3>{step.title}</h3>
+            <p>{step.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .process-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    position: relative;
+  }
+  .process-grid::before {
+    content: "";
+    position: absolute;
+    top: 36px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--primary-light), var(--primary), var(--primary-light));
+    z-index: 0;
+  }
+  .process-step {
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .process-num {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--primary);
+    margin: 0 auto 18px;
+    display: grid;
+    place-items: center;
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    transition: all 0.3s;
+  }
+  .process-step:hover .process-num {
+    background: var(--primary);
+    color: white;
+    transform: scale(1.08);
+    box-shadow: var(--shadow-primary);
+  }
+  .process-step h3 {
+    font-size: 1.05rem;
+    margin-bottom: 8px;
+  }
+  .process-step p {
+    font-size: 13.5px;
+    color: var(--text-muted);
+    padding: 0 8px;
+  }
+  @media (max-width: 1024px) {
+    .process-grid {
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+  }
+  @media (max-width: 768px) {
+    .process-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+    .process-grid::before {
+      display: none;
+    }
+    .process-step {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      text-align: left;
+    }
+    .process-num {
+      margin: 0;
+      width: 56px;
+      height: 56px;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .process-step h3 {
+      margin-bottom: 4px;
+    }
+    .process-step p {
+      padding: 0;
+    }
+  }
+</style>
