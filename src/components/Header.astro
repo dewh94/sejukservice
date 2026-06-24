@@ -188,6 +188,12 @@ const whatsapp = "https://wa.me/628122023364?text=Halo%20Sejuk%20Service,%20saya
     margin: auto;
   }
   @media (max-width: 768px) {
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+    }
+    :global([data-theme="dark"]) .header {
+      background: rgba(15, 23, 42, 0.95);
+    }
     .nav {
       display: none;
     }
