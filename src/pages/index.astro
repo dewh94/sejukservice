@@ -253,12 +253,20 @@ import FloatingWhatsapp from "../components/FloatingWhatsapp.astro";
     width: 20px;
     height: 20px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 1024px) {
     .back-to-top {
-      bottom: 90px;
-      right: 16px;
+      left: 50%;
+      right: auto;
+      bottom: 96px;
       width: 40px;
       height: 40px;
+      transform: translateX(-50%) translateY(20px);
+    }
+    .back-to-top.visible {
+      transform: translateX(-50%) translateY(0);
+    }
+    .back-to-top:hover {
+      transform: translateX(-50%) translateY(-3px);
     }
   }
 </style>
